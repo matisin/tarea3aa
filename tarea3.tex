@@ -146,37 +146,29 @@ Se considera un subproblema S$_{k}$ no vacío y dos particiones S$_{m}$ y S$_{h}
 \subsubsection{Demostración}
 Sea A$_{k}$ la hormiga con mayor tiempo en el conjunto S
 \subsection{Algoritmo recursivo}
-En este algoritmo el arreglo S representa las posiciones iniciales de las hormigas ordenadas de forma decreciente, L el tamaño del palo y V la velocidad de las hormigas.\\\\
+En este algoritmo el arreglo S representa las posiciones iniciales de las hormigas ordenadas de forma decreciente, L el tamaño del palo y V la velocidad de las hormigas e i,j son los indices de la partición.\\\\
 \begin{algorithm}[H]
- \KwData{S[0...n],L,V}
+ \KwData{S[0 $\dots$ n],L,V,i,j}
  \KwResult{Tiempo mínimo en que todas las hormigas caen}
- k = n/2\;
+ k = (i+j)/2\;
  medio = L/2\;
- \eIf{ $|$ medio - S[k] $|$ $\leq$ $|$ medio - S[k+1] $|$}{
- 	asdas\;
+ \eIf{i $=$ j }{
+ 	\eIf{(L - S[i]) $\leq$ S[i]}{
+ 		\textbf{return} (L-S[i])/V\;
+ 	}{
+ 		\textbf{return} (S[i])/V\;
+ 	}
+ 	
+ 	
  }{
- 	asdads\;
- }
- inicialización S[1...n]\;
- inicialización ClaseSig[1...n];
- S[n] = DI(L-T$_n$,C)\;
- \For{i = n - 1 \textbf{to} 1}{
- 	ClaseActual = T$_i$\;
- 	Start = 0\;
- 	\For{k = i + 1 \textbf{to} n}{
- 		ClaseActual += T$_k$\;
- 		\eIf{Start == 0}{
- 			Start = 1\;
- 			S[i] = DI(L-ClaseActual,C)+S[k+1]\;
- 		}{
- 			\If{ClaseActual $\leq$ L \textbf{and} DI(L - ClaseActual,C) + S[k+1] $\leq$ S[i]}{
- 				S[i] = DI(L - ClaseActual,C) + S[k + 1]\;
- 				ClaseSig[i]=j+1\;
- 			}
- 		}
+ 	\eIf{$|$ medio - S[k] $|$ $\leq$ $|$ medio - S[k+1] $|$}{
+ 		\textbf{return} TMHrecursivo(S,L,V,i,k)\;
+ 	}{
+ 		\textbf{return} TMHrecursivo(S,L,V,k+1,j)\;
  	}
  } 
- \caption{Tiempo mínimo en caer hormigas}
+ \caption{TMHrecursivo}
  \label{fig:algo1}
 \end{algorithm}
+\subsection{Algoritmo iterativo}
 \end{document}
