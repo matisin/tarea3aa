@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\renewcommand*\contentsname{Indice}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage[noline,ruled,linesnumbered,spanish]{algorithm2e}
+\usepackage{forest}
+\usepackage{forest,adjustbox}
+\graphicspath{ {/home/laboroco/Algoritmos/tarea_1_analisis/proyecto/} }
+\title{Tarea II\\ \small{Análisis de Algoritmos, Grupo 3}}
+\author{
+Maria Andrea Rodriguez Tastets$^{1}$, Erick Elejalde Sierra$^{2}$,\\ Cristóbal Donoso Oliva$^{3}$ Matías Medina Silva$^{4}$\\\\
+\small{$^{1}$Docente a cargo de la asignatura $^{2}$Ayudante de asignatura}\\
+\small{$^{3-4}$Estudiantes de pregrado}\\
+\small{$^{1}$andrea@udec.cl $^{2}$erick.elejalde@gmail.com $^{3}$cdonoso94@gmail.com }\\
+\small{$^{4}$matiasdmedina@udec.cl}\\
+\small{$^{1-2-3-4}$Dpto. de Ingeniería Civil Informática y Ciencias de la Computación}\\
+\small{Universidad de Concepción, Concepción, Chile.}\\
+}
+\date{19 de Mayo del 2016}
+
+
+\begin{document}
+\maketitle
+\newpage
+
+\section{Problema 1}
+Asuma que tiene $n$ objetos que tiene peso idéntico, excepto para uno que es un poco más pesado que los otros. Usted tiene una balanza. Se puede colocar 2 personas en la balanza y la idea es encontrar el objeto más pesado con el mínimo número de usos de la balanza. Encuentre el lower bound para este problema.
+
+\section{Lower Bound}
+Primero debemos considerar que la balanaza no es más que la representación de comparar dos objetos $n_i$ $R$ $n_{i+1}$. Así mismo, el peso de cualquier objeto estará determinado por:
+\begin{center}$Peso Objeto = Peso Balanza - Peso persona$\end{center}
+No sabemos cual es el peso de las personas que están en la balanza, no obs-tante, podemos obviar sus pesos ya que solo nos interesa encontrar el objeto mas pesado.\\\\Para este problema trabajaremos con un \emph{arbol de decisión} describiendo en él todas las posibilidades al momento de comparar.
+
+\tikzset{
+    every label/.append style={font=\scriptsize},
+    my edge labels/.style={font=\scriptsize},
+    dominant/.append style={label=below:$dominant$},
+  }
+\begin{center}  \begin{forest}
+    for tree={
+      circle,
+      draw,
+      minimum width=0.5em,
+      l sep+=1.0em,
+      s sep+=1em,
+      anchor=center,
+      edge path={
+        \noexpand\path[\forestoption{edge}](!u.parent anchor)--(.child anchor)[		my edge labels]\forestoption{edge label};
+      },
+    },
+    delay={
+      where n=1{
+        edge label/.wrap 2 pgfmath args={
+          node[midway, left]{}}{level}{n}
+      }{
+        edge label/.wrap 2 pgfmath args={
+          node[midway, right]{}}{level}{n}
+      },
+    }
+    [>, 
+       [si, 
+       		[,phantom]
+       ]
+       [>, 
+        [si, 
+        	[,phantom]
+        ]
+        [>,
+        	[si,
+        		[,phantom]
+        	]
+        	[>,
+        	]
+        ]
+       ]
+      ]
+    ]
+  \end{forest}\end{center}
+Notémos que en el peor de los casos necesitaremos $n-1$ comparaciones para encontrar el objeto de mayor peso (altura del árbol). Por lo tanto, se infiere que el \emph{Lower Bound} asociado a este problema es $O(n)$.
+
+\section{Demostración}
+Imaginemos que exíste un Lower Bound menor de $n-2$ comparaciones. Entonces, existe un objeto el cual no es comparado con su sucesor.\\Consiederemos una entrada de $n$ objetos iguales, esto es: 
+\begin{center}$o_0 = o_1 = o_2 = o_3 = ... = o_n$\end{center}
+Si agregamos un \emph{nuevo elemento distint}o nuestro algoritmo \textbf{X }debería encontrar la respuesta correcta en $n-2$ comparaciones\\
+\begin{center}$o_1...0_n$ $\cup$ $o_{n+1}$\end{center}
+Sin embargo, el algoritmo retornaría una respuesta errada ya que siempre dejará un elemento sin verificar y esto trae como consecuencia la discriminación de objetos en el peor de los casos.\\\\Finalmente podemos afirmar que el Lower Bound adecuado al \emph{mejor peor caso} toma un numero lineal de comparaciones, lo que se traduce a la cantidad mínima de usos de balanza O(n).
+
+\section{Opción Greedy}
+Supongamos que $S$ es la solución óptima al problema y por lo tanto se compone de $I_1$...$I_k$ instancias. La solución estará definida por la comparación de todas las distancias de una partición, y de esta forma determinar el máximo de los valores mínimos asociados a la distancia de una hormiga(ver función X).\\\\La opción Greedy será particionar el conjunto $S_{i,j}$ por la mitad $\frac{i+j}{2} = k$, por lo tanto, quedarán dos particiones $S_{i,k}$ y $S_{k+1,j}$. Luego comparamos las hormigas $a_k$ y $a_{k+1}$ las cuales son las más próximas a la mitad y nos quedamos con la mas cercana a la mitad del palo $L/2$. Dicho de otra forma:
+
+\begin{center}$\exists$ $a_{i,j}$ / $a_{i,j} = min\{|L/2-p_k|,|p_{k+1}-L/2|\}$\end{center}
+Luego consideramos la partición que contenga a la \emph{hormiga vencedora} y descartamos el conjunto de hormigas de la otra partición. Finalmente, iteramos hasta encontrar la hormiga que esté más cerca de la mitad $L/2$
+\end{document}
