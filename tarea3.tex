@@ -2,7 +2,7 @@
 \usepackage{graphicx}
 \usepackage[left=1.3in, right=1.3in, top=1in, bottom=1in]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage[noline,ruled,linesnumbered,spanish]{algorithm2e}
+\usepackage[noend,ruled,linesnumbered,spanish]{algorithm2e}
 \usepackage{forest,adjustbox}
 \usepackage{babel}
 \title{Tarea III\\ \small{Análisis de Algoritmos, Grupo 3}}
@@ -171,7 +171,7 @@ En este algoritmo el arreglo S representa las posiciones iniciales de las hormig
  \label{fig:algo1}
 \end{algorithm}
 \subsection{Algoritmo iterativo}
-Este algoritmo recive los mismo parametros que el algoritmo recursivo y hace lo mismo de forma iterativa.\\\\
+Este algoritmo recibe los mismo parámetros que el algoritmo recursivo y hace lo mismo de forma iterativa.\\\\
 \begin{algorithm}[H]
  \KwData{S[0 $\dots$ n],L,V,i,j}
  \KwResult{Tiempo mínimo en que todas las hormigas caen}
@@ -190,7 +190,7 @@ Este algoritmo recive los mismo parametros que el algoritmo recursivo y hace lo 
  	}{
  		\textbf{return} S[i]/V\;
  	}
- \caption{TMHrecursivo}
- \label{fig:algo1}
+ \caption{TMHiterativo}
+ \label{fig:algo2}
 \end{algorithm}
 \end{document}
