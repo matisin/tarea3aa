@@ -154,9 +154,9 @@ En este algoritmo el arreglo S representa las posiciones iniciales de las hormig
  medio = L/2\;
  \eIf{i $=$ j }{
  	\eIf{(L - S[i]) $\leq$ S[i]}{
- 		\textbf{return} (L-S[i])/V\;
+ 		\textbf{return} (L - S[i])/V\;
  	}{
- 		\textbf{return} (S[i])/V\;
+ 		\textbf{return} S[i]/V\;
  	}
  	
  	
@@ -171,4 +171,26 @@ En este algoritmo el arreglo S representa las posiciones iniciales de las hormig
  \label{fig:algo1}
 \end{algorithm}
 \subsection{Algoritmo iterativo}
+Este algoritmo recive los mismo parametros que el algoritmo recursivo y hace lo mismo de forma iterativa.\\\\
+\begin{algorithm}[H]
+ \KwData{S[0 $\dots$ n],L,V,i,j}
+ \KwResult{Tiempo mínimo en que todas las hormigas caen}
+ k = (i+j)/2\;
+ medio = L/2\;
+ \While{i $\neq$ j}{
+ 	k = (i+j)/2\;
+ 	\eIf{$|$ medio - S[k] $|$ $\leq$ $|$ medio - S[k+1] $|$}{
+ 		j = k\;
+ 	}{
+ 		i = k+1\;
+ 	}
+ }
+ \eIf{(L - S[i]) $\leq$ S[i]}{
+ 		\textbf{return} (L - S[i])/V\;
+ 	}{
+ 		\textbf{return} S[i]/V\;
+ 	}
+ \caption{TMHrecursivo}
+ \label{fig:algo1}
+\end{algorithm}
 \end{document}
