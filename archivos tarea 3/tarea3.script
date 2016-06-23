@@ -1,0 +1,4 @@
+set title "Ordenamiento"
+set xlabel "n"
+set ylabel "Tiempo(s)"
+plot "resultados.txt" using 1:2,

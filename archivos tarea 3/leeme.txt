@@ -1,0 +1,2 @@
+El archivo resultados.txt se genera corriendo el programa por la terminal. 
+Luego se puede ejecutar el script plot.sh para graficar con gnuplot.
