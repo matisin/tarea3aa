@@ -21,6 +21,8 @@ Maria Andrea Rodriguez Tastets$^{1}$, Erick Elejalde Sierra$^{2}$,\\ Cristóbal 
 \newpage
 \tableofcontents
 \newpage
+\section{Introducción}
+En el presente informe trabajaremos 
 \section{Problema del peso disidente}
 Asuma que tiene $n$ objetos que tiene peso idéntico, excepto para uno que es un poco más pesado que los otros. Usted tiene una balanza, se puede colocar 2 personas en la balanza y la idea es encontrar el objeto más pesado con el mínimo número de usos de la balanza. Encuentre el lower bound para este problema.
 \subsection{Lower Bound}
@@ -193,7 +195,6 @@ Este algoritmo recibe los mismo parámetros que el algoritmo recursivo y hace lo
 \begin{algorithm}[H]
  \KwData{S[0 $\dots$ n],L,V,i,j}
  \KwResult{Tiempo mínimo en que todas las hormigas caen}
- k = (i+j)/2\;
  medio = L/2\;
  \While{i $\neq$ j}{
  	k = (i+j)/2\;
@@ -212,20 +213,21 @@ Este algoritmo recibe los mismo parámetros que el algoritmo recursivo y hace lo
  \label{fig:algo2}
 \end{algorithm}
 \newpage
-\section{Complejidad}
-Para estimar la complejidad de este algoritmo, primero se debe calcular 	la cantidad de operaciones elementales del algoritmo. La operación básica sobre la cual trabajaremos es la \emph{comparación} ya que es la más utilizada. Por efectos del estudio se considera un único caso el cual corresponde a la comparación de todas las particiones que evaluen la opción greedy.\\\\Notemos que la forma en que buscamos la solución óptima resulta similar a una busqueda binaria. Es claro ver un ciclo el cual iterará tantas veces como particiones por la mitad se hagan. Entonces, ¿en cuantos tiempos podemos encontrar la solución dividiendo conjuntos de N hormigas por 2?.
+\subsection{Complejidad del algoritmo}
+Para estimar la complejidad de este algoritmo, primero se debe calcular 	la cantidad de operaciones elementales del algoritmo. La operación básica sobre la cual trabajaremos es la \emph{comparación} ya que es la más utilizada. Por efectos del estudio se considera un único caso el cual corresponde a la comparación de todas las particiones que evaluen la opción greedy.\\\\Notemos que la forma en que buscamos la solución óptima resulta similar a una busqueda binaria. Es claro ver un ciclo el cual iterará tantas veces como particiones por la mitad se hagan. Entonces, ¿En cuantos tiempos podemos encontrar la solución dividiendo conjuntos de N hormigas por 2?.
 \begin{center}$1 = \frac{N}{2^x}$\end{center}
 \begin{center}$2^x = N$\end{center}
 \begin{center}$\log_2{2^x} = \log_2{N}$\end{center}
 \begin{center}$x*\log_2{2} = \log_2{N}$\end{center}
 \begin{center}$x = \log_2{N}$\end{center}
 Finalmente, la complejidad del algoritmo es O($\log_2{n}$).
-
+\newpage
+\subsubsection{Experimentación del algoritmo}
+El siguiente gráfico fue generado usando el archivo plot.sh que compila y ejecuta la implementación del algoritmo en c. El programa aumenta el tamaño de n hormigas hasta llegar a n=10.000, calcula el tiempo que se demora para cada n y guarda los datos en un archivo llamado resultados.txt.\\\\Como se aprecia en la figura~\ref{fig:grafico}, el algoritmo es muy rápido y no hay consistencia en terminos de tiempo de ejecución para distintos tamaños de n, esto se debe principalmente a que al algoritmo ser muy rápido se causa diferencias en el tiempo de ejecución principalmente por el manejo del programa por el sistema operativo.
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.5]{grafico.pdf}
+    \includegraphics[scale=0.5]{grafico2.pdf}
     \caption{ejecución algoritmo greedy}
-    \label{fig:durante}
+    \label{fig:grafico}
 \end{figure}
-
 \end{document}
