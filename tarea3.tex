@@ -77,14 +77,14 @@ No sabemos cual es el peso de las personas que están en la balanza, no obs-tant
    \label{fig:arbol}
   \end{figure}
 Notémos que en el peor de los casos necesitaremos $n-1$ comparaciones para encontrar el objeto de mayor peso (altura del árbol). Por lo tanto, se infiere que el \emph{Lower Bound} asociado a este problema es $O(n)$.
-
+\newpage
 \subsection{Demostración}
 Imaginemos que exíste un Lower Bound menor de $n-2$ comparaciones. Entonces, existe un objeto el cual no es comparado con su sucesor.\\Consiederemos una entrada de $n$ objetos iguales, esto es: 
 \begin{center}$o_0 = o_1 = o_2 = o_3 = ... = o_n$\end{center}
 Si agregamos un \emph{nuevo elemento distint}o nuestro algoritmo \textbf{X }debería encontrar la respuesta correcta en $n-2$ comparaciones\\
 \begin{center}$o_1...0_n$ $\cup$ $o_{n+1}$\end{center}
 Sin embargo, el algoritmo retornaría una respuesta errada ya que siempre dejará un elemento sin verificar y esto trae como consecuencia la discriminación de objetos en el peor de los casos.\\\\Finalmente podemos afirmar que el Lower Bound adecuado al \emph{mejor peor caso} toma un numero lineal de comparaciones, lo que se traduce a la cantidad mínima de usos de balanza O(n).
-
+\newpage
 \section{Hormigas en un palo}
 \subsection{Definición del problema}
 Un ejército de hormigas camina en un palo horizontal de largo \emph{l}, cada una a una velocidad constante \emph{v}. Cuando una hormiga alcanza el final del palo se cae. Cuando dos hormigas se encuentran ellas se dan vuelta y caminan en sentido contrario. Se sabe la posición inicial de las hormigas pero no su dirección de movimiento. Se te pide determinar el menor y mayor tiempo posible para que todas las hormigas se caigan del palo.\\\\Supongamos que tenemos un conjunto ordenado S = \{a$_{1}, \dots ,a_{n}$\} de n hormigas y un palo de largo \emph{l}. Cada hormiga a$_{i}$ tiene una posición incial p$_{i}$, donde 0 $\leq $ p$_{i}$ $\leq $ \emph{l}.
@@ -112,6 +112,8 @@ Antes de definir la subescructura óptima se analizará que sucede cuando dos ho
 Como vemos en la figura~\ref{fig:despues}, lo que le sucede a una hormiga tras una colisión es lo mismo que le sucedería a la otra hormiga, en otras palabras, es como si no hubiese habido un choque y las hormigas intercambiarán su ``identidad'', siendo esta representada por los números. Entonces el tiempo total para que todas las hormigas caigan estaría dado por la hormiga que demore más tiempo en cruzar el palo como si no hubiesen colisiones\\\\Denotemos el conjunto S$_{i,j}$ que contiene desde las hormiga \emph{i} hasta la hormiga \emph{j}.\\\\Se asume que el conjunto está ordenado en orden creciente en terminos de \emph{p}, es decir que $\forall$ a$_{k}$ $\in$ S$_{i,j}$ , p$_{k}$ $\leq$ p$_{k+1}$ con 0 $\leq$ i $\leq$ k $\leq$ j, entonces, para encontrar el tiempo máximo es trivial, ya que solo se necesita comparar la horgmia a$_{0}$ con la hormiga a$_{n}$ y calcular cual demoraría más en cruzar a la orilla opuesta del palo. Para el tiempo mínimo, el problema se transofrma en encontrar la hormiga que se demora más tiempo en cruzar el palo, considerando la dirección de movimiento hacia la orilla más cercana.\\\\Luego se tiene un problema S$_{i,j}$, donde una solución a S$_{i,j}$ sería dado por el tiempo mínimo de la hormiga a$_{k}$, tal que p$_{i}$ $\leq$ p$_{k}$ $\leq$ p$_{j}$. Esto genera dos subproblemas S$_{i,k}$ y S$_{k+1,j}$, donde la solución al problema S$_{k+1,j}$ debe ser menor que a$_{k}$.\\\\La subestructura óptima es la siguiente. Suponemos que una solucion A$_{i,j}$ de S$_{i,j}$ es el tiempo mínimo de la hormiga a$_{k}$. Entonces las soluciones A$_{i,k}$ de S$_{i,k}$ y A$_{k+1,j}$ de S$_{k+1,j}$ que se usan en la solución optima de S$_{i,j}$ deben ser óptimas.
 \subsection{Demostración subestructura óptima}
 Se asume que A$_{i,j}$ (el tiempo mínimo de la hormiga a$_{k}$) es la solución óptima del problema S$_{i,j}$. Si hay una solución A'$_{i,k}$ de S$_{i,k}$ con una hormiga que tome más tiempo en cruzar el palo que en A$_{i,k}$, entonces podríamos reemplazar A$_{i,k}$ por A'$_{i,k}$ en A$_{i,j}$ y así mismo reemplazar A'$_{i,k}$ por A$_{i,j}$, ya que a$_{k}$ $\in$ S$_{i,k}$. Ya que asumimos que A$_{i,j}$ era una solución optima, entonces hay una contradicción. Lo mismo se aplica para S$_{k,j}$
+
+\newpage
 \subsection{Solución recursiva}
 Se quiere encontrar el tiempo de la hormiga a$_{k}$ que demore más en recorrer el palo teniendo en cuenta la opción minima, es decir, que camine hacia la orilla más cercana. Para el calculo de la opción minima se definió la siguiente función d[i] considerando la posición p${i}$, el largo del palo \emph{l} y la velocidad \emph{v}:\\
 \begin{figure}[h]
@@ -140,11 +142,27 @@ Supongamos que $A_{i,j}$ es la solución óptima al problema y por lo tanto se c
 
 \begin{center} $a_{c} = min\{|l/2-p_k|,|l/2-p_{k+1}|\}$\end{center}
 Luego consideramos la partición que contenga a$_{c}$ y descartamos el conjunto de hormigas de la otra partición. Finalmente, iteramos hasta encontrar la hormiga que esté más cerca de la mitad $l/2$,
+
+\newpage
 \subsection{Teorema y demostración elección Greedy}
 \subsubsection{Teorema}
 Se considera un subproblema S$_{k}$ no vacío y dos particiones S$_{m}$ y S$_{h}$ de S$_{k}$, sea a$_{k}$ la hormiga que toma más tiempo en llegar a la orilla considerando la dirección mínima perteneciente a S$_{k}$. Entonces dependiendo de la elección, es decir si se elige la partición S$_{m}$ ó S$_{h}$, a$_{k}$ $\in$ S$_{m}$ ó a$_{k}$ $\in$ S$_{h}$.
 \subsubsection{Demostración}
-Sea A$_{k}$ la hormiga con mayor tiempo en el conjunto S
+La demostración se limita a resolver una busqueda binaria sobre las hormigas, las cuales se encuentran ordenadas según su posición. Resulta trivial garantizar la correctitud de este método considerando que la solución exacta estará asociada a una partición y siempre se cumplirá que si se elige la partición S$_{m}$ ó S$_{h}$, a$_{k}$ $\in$ S$_{m}$ ó a$_{k}$ $\in$ S$_{h}$ siendo $a_k$ el tiempo asociado a la hormiga que cae última.\\\\Por otro lado, la solución Greedy siempre será mejor opción que otro tipo. Podemos demostrar esto en base  la cantidad de consultas. Si bien, el problema dada una entrada tiene solución única (no aproxima una solución) tenemos mejoras significativas en el tiempo de ejecución.
+Sea $S$ la solución óptima sin Greedy, podemos decir que esta se compone de todas las comparaciónes posibles.
+\begin{center}$S = C_1 \cup C_2 \cup C_3 \cup$ ... $\cup C_n$\end{center}
+Pues bien una instancia de la solución Greedy se compone de: 
+\begin{center}$I_{greedy} = C_m \cup C_{m+1} $\end{center}
+donde m es la cantidad de hormigas de una partición, y con esto:
+\begin{center}$C_m > C_1 \cup C_2 \cup C_3 \cup$ ... $\cup C_{m-1}$\end{center}
+\begin{center}$C_{m+1} < C_1 \cup C_2 \cup C_3 \cup$ ... $\cup C_n$\end{center}
+
+\begin{center}$S = I_1 \cup I_2 \cup I_3 \cup$ ... $\cup I_{\log{n}}$\end{center}
+En conclusión, con la opción greedy siempre mantenemos la solución optima, sin embargo no es necesario realizar todas las comparaciones. De esta forma vamos discriminando y acotando el espacio muestral de los conjuntos iniciales de manera que determinamos el óptimo de manera mas eficiente.
+
+\begin{center} $a_{c} = min\{|l/2-p_k|,|l/2-p_{k+1}|\}$\end{center}
+Luego consideramos la partición que contenga a$_{c}$ y descartamos el conjunto de hormigas de la otra partición. Finalmente, iteramos hasta encontrar la hormiga que esté más cerca de la mitad $l/2$,
+
 \subsection{Algoritmo recursivo}
 En este algoritmo el arreglo S representa las posiciones iniciales de las hormigas ordenadas de forma decreciente, L el tamaño del palo y V la velocidad de las hormigas e i,j son los indices de la partición.\\\\
 \begin{algorithm}[H]
@@ -193,4 +211,21 @@ Este algoritmo recibe los mismo parámetros que el algoritmo recursivo y hace lo
  \caption{TMHiterativo}
  \label{fig:algo2}
 \end{algorithm}
+\newpage
+\section{Complejidad}
+Para estimar la complejidad de este algoritmo, primero se debe calcular 	la cantidad de operaciones elementales del algoritmo. La operación básica sobre la cual trabajaremos es la \emph{comparación} ya que es la más utilizada. Por efectos del estudio se considera un único caso el cual corresponde a la comparación de todas las particiones que evaluen la opción greedy.\\\\Notemos que la forma en que buscamos la solución óptima resulta similar a una busqueda binaria. Es claro ver un ciclo el cual iterará tantas veces como particiones por la mitad se hagan. Entonces, ¿en cuantos tiempos podemos encontrar la solución dividiendo conjuntos de N hormigas por 2?.
+\begin{center}$1 = \frac{N}{2^x}$\end{center}
+\begin{center}$2^x = N$\end{center}
+\begin{center}$\log_2{2^x} = \log_2{N}$\end{center}
+\begin{center}$x*\log_2{2} = \log_2{N}$\end{center}
+\begin{center}$x = \log_2{N}$\end{center}
+Finalmente, la complejidad del algoritmo es O($\log_2{n}$).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{grafico.pdf}
+    \caption{ejecución algoritmo greedy}
+    \label{fig:durante}
+\end{figure}
+
 \end{document}
